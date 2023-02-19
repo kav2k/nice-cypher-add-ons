@@ -97,9 +97,14 @@
 /* gonzaPaEst two cents of styling */
 .linkedButton {
     height: 26px;
+		line-height: 23px;
     padding: 1px 3px;
     margin: 0;
     border: 1px solid #7a7971;
     border-radius: 3px;
     background: rgba(0, 0, 0, 0.05);
+}
+
+.linkedButton .fas {
+  padding-right: 0.2em;
 }
