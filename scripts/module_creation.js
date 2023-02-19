@@ -410,7 +410,8 @@ function updateActorSheet(html, toUpdate, journalpage) {
 		  oldNode = html.find(`input[name="system.basic.${toUpdate}"`);
 	
 	oldNode.replaceWith(newNode);
-	html.find(`a.linkedButton[data-uuid='${journalpage.uuid}']`).click(async (e) => {
+	const linkedButton = html.find(`a.linkedButton[data-uuid='${journalpage.uuid}']`);
+	linkedButton.click(async (e) => {
 		const uuid = e.currentTarget.getAttribute('data-uuid');
 		const page = await fromUuid(uuid);
 		if (!e.altKey) {
@@ -422,6 +423,13 @@ function updateActorSheet(html, toUpdate, journalpage) {
 			journalsToArray(page, html, actor, true);
 		};
 	});
+
+	// Works with standard sentence fields and custom-configured additional field
+	const typeName = oldNode.attr('placeholder');
+	// Add tooltip with hint for alt-click
+	linkedButton.attr('title', game.i18n.format('NICECYPHER.CreationButtonHint', { type: typeName }));
+	// Remove default "Text page" tooltip from journal link
+	linkedButton.attr('data-tooltip', null);
 };
 
 function translateAnchor(anchor) {
